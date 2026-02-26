@@ -23,5 +23,8 @@
   "users.success.reset-password": "Senha alterada com sucesso!",
   "users.success.logout": "Logout realizado com sucesso.",
   "users.success.deleted": "Usuário deletado com sucesso!",
-  "activation-code.success": "Usuário ativado com sucesso."
+  "activation-code.success": "Usuário ativado com sucesso.",
+  "tasks.error.required-end-date": "A data de término é obrigatória. Por favor, forneça.",
+  "tasks.error.required-description": "A descrição é obrigatória. Por favor, forneça.",
+  "tasks.error.invalid-end-date": "A data de término deve ser uma data futura. Por favor, verifique."
 }

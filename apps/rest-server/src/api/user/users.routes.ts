@@ -8,7 +8,7 @@ import type { AuthCredentials } from '@domain/model/auth.model.js';
 import { authSchema } from './auth.schema.js';
 import { LoginUseCase } from '@domain/users/login.use.case.js';
 import { AuthorizationMiddleware } from '@api/authorization.middleware.js';
-import { Message } from '@domain/model/common.model.js';
+import type { Message } from '@domain/model/common.model.js';
 import { messageSchema } from '@api/common/common.schema.js';
 import { UnauthorizedError } from '@repo/core/error';
 import { LogoutUseCase } from '@domain/users/logout.use-case.js';

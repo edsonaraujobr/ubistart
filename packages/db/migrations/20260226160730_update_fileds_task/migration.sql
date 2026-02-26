@@ -1,0 +1,2 @@
+ALTER TABLE `tasks` MODIFY `description` VARCHAR(255) NOT NULL,
+    MODIFY `end_date` TIMESTAMP(6) NOT NULL;

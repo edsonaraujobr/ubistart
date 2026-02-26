@@ -27,11 +27,11 @@ model User {
 
 model Task {
   id                String            @id @default(uuid()) @db.Char(36)
-  description       String?           @db.VarChar(255)
+  description       String           @db.VarChar(255)
   createdAt         DateTime          @default(now()) @map("created_at") @db.Timestamp(6)
   finishedAt        DateTime?          @map("finished_at") @db.Timestamp(6)
   updatedAt         DateTime          @updatedAt @map("updated_at") @db.Timestamp(6)
-  endDate           DateTime?          @map("end_date") @db.Timestamp(6)
+  endDate           DateTime          @map("end_date") @db.Timestamp(6)
   status            StatusTask        @map("status") @default(PENDING)
   userId            String            @map("user_id") @db.Char(36)
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)

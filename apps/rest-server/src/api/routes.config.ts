@@ -7,10 +7,12 @@ import { errorsSchema } from './common/common.schema.js';
 import { ROUTES_METHODS, type RouteMethodHandler, type Routes, type RoutesHttpMethod } from './routes.js';
 import { SettingsRoutes } from './settings/settings.routes.js';
 import { UsersRoutes } from './user/users.routes.js';
+import { TasksRoutes } from './tasks/tasks.routes.js';
 
 const ROUTES_RESOURCES_TO_REGISTER = [
   SettingsRoutes,
-  ...UsersRoutes
+  ...UsersRoutes,
+  ...TasksRoutes,
 ];
 
 export async function configureRoutes(fastify: FastifyInstance) {
