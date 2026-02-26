@@ -28,8 +28,17 @@ async function createUser(input: CreateUserInput & { salt: string }): Promise<Us
   return user;
 }
 
+async function findById(id: string): Promise<UserWithCredentialsModel | null> {
+  const user = await dbClient.user.findUnique({
+    where: { id, deletedAt: null }
+  })
+
+  return user ?? null;
+}
+
 export const UserDatasource = {
   findByEmail,
   createUser,
-  findByEmailIncludedDeletedUsers
+  findByEmailIncludedDeletedUsers,
+  findById
 }

@@ -7,6 +7,11 @@ import { CreateUserUseCase } from '@domain/users/create-user.use-case.js';
 import type { AuthCredentials } from '@domain/model/auth.model.js';
 import { authSchema } from './auth.schema.js';
 import { LoginUseCase } from '@domain/users/login.use.case.js';
+import { AuthorizationMiddleware } from '@api/authorization.middleware.js';
+import { Message } from '@domain/model/common.model.js';
+import { messageSchema } from '@api/common/common.schema.js';
+import { UnauthorizedError } from '@repo/core/error';
+import { LogoutUseCase } from '@domain/users/logout.use-case.js';
 
 export const UsersRoutes: Routes[] = [
   {
@@ -40,6 +45,29 @@ export const UsersRoutes: Routes[] = [
       },
       handler: ({ body }: { body: UserLoginInput }): Promise<AuthCredentials> => LoginUseCase.exec(body),
     },
-  }
+  },
+
+  {
+    base: '/users',
+    delete: {
+      endpoint: '/logout',
+      schema: { 
+        response: { 204: messageSchema }, 
+        tags: ['users'],
+        description: 'Finaliza a sessão atual do usuário autenticado',
+        summary: 'Finaliza a sessão atual do usuário autenticado'
+      },
+      beforeMiddlewares: [AuthorizationMiddleware],
+      handler: (): Promise<Message> => {
+        const { userId, sessionId } = ContextProvider.getInstance<ServerContext>().get();
+
+        if (!userId || !sessionId) {
+          throw new UnauthorizedError();
+        }
+
+        return LogoutUseCase.exec({ userId, sessionId });
+      },
+    },
+  },
 
 ];
