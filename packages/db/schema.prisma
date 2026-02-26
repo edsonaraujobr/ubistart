@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String                   @id @default(uuid()) @db.Char(36)
+  email             String                   @unique @db.VarChar(255)
+  password          String                   @db.VarChar(255)
+  salt              String                   @db.VarChar(255)
+  active            Boolean                  @default(false)
+  createdAt         DateTime                 @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt         DateTime                 @updatedAt @map("updated_at") @db.Timestamp(6)
+  deletedAt         DateTime?                @map("deleted_at")
+  name              String                   @db.VarChar(255)
+  typeUser          TypeUser                 @map("type_user")
+
+  Session Session[]
+  Task Task[]
+
+  @@map("users")
+}
+
+model Task {
+  id                String            @id @default(uuid()) @db.Char(36)
+  description       String?           @db.VarChar(255)
+  createdAt         DateTime          @default(now()) @map("created_at") @db.Timestamp(6)
+  finishedAt        DateTime?          @map("finished_at") @db.Timestamp(6)
+  updatedAt         DateTime          @updatedAt @map("updated_at") @db.Timestamp(6)
+  endDate           DateTime?          @map("end_date") @db.Timestamp(6)
+  status            StatusTask        @map("status") @default(PENDING)
+  userId            String            @map("user_id") @db.Char(36)
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
+}
+
+model Session {
+  id        String     @id @default(uuid()) @db.Char(36)
+  retoken   String?    @unique @db.VarChar(255)
+  expiresIn DateTime   @map("expires_in")
+  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime   @default(now()) @map("updated_at") @db.Timestamp(6)
+  deletedAt DateTime?  @map("deleted_at")
+
+  user       User       @relation(fields: [userId], references: [id])
+  userId     String     @map("user_id") @db.Char(36)
+  @@map("session")
+}
+
+enum TypeUser {
+  USER
+  ADMIN
+}
+
+enum StatusTask {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}

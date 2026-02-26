@@ -1,0 +1,79 @@
+{
+  "name": "@repo/core",
+  "version": "0.1.0",
+  "private": true,
+  "files": ["dist"],
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "npm run clean && tsc --project prod.tsconfig.json",
+    "clean": "rm -rf .turbo node_modules dist/",
+    "test": "mocha --import=tsx src/**/**.test.ts"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "7.16.0",
+    "@repo/env": "0.1.0",
+    "axios": "1.7.9",
+    "esm-module-alias": "2.2.1",
+    "express": "4.21.2",
+    "glob": "11.0.0",
+    "i18n": "0.15.1",
+    "jsonwebtoken": "9.0.2",
+    "resend": "4.2.0",
+    "winston": "3.13.1",
+    "zod": "3.24.2"
+  },
+  "devDependencies": {
+    "@types/chai": "5.0.1",
+    "@types/express": "5.0.0",
+    "@types/i18n": "0.13.12",
+    "@types/jsonwebtoken": "9.0.7",
+    "@types/mocha": "10.0.9",
+    "@types/sinon": "17.0.3",
+    "chai": "5.1.2",
+    "mocha": "10.7.3",
+    "sinon": "17.0.2",
+    "tsx": "4.19.1"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./config": "./dist/config/index.js",
+    "./context": "./dist/context/index.js",
+    "./data": "./dist/data/index.js",
+    "./email": "./dist/email/index.js",
+    "./upload": "./dist/upload/index.js",
+    "./error": "./dist/error/index.js",
+    "./loader": "./dist/loader/index.js",
+    "./localization": "./dist/localization/index.js",
+    "./log": "./dist/log/index.js",
+    "./pagination": "./dist/pagination/index.js",
+    "./security": "./dist/security/index.js",
+    "./test": "./dist/test/index.js",
+    "./utils": "./dist/utils/index.js",
+    "./push-notification": "./dist/push-notification/index.js",
+    "./google-play": "./dist/google-play/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "config": ["dist/config/index.d.ts"],
+      "context": ["dist/context/index.d.ts"],
+      "data": ["dist/data/index.d.ts"],
+      "error": ["dist/error/index.d.ts"],
+      "loader": ["dist/loader/index.d.ts"],
+      "localization": ["dist/localization/index.d.ts"],
+      "log": ["dist/log/index.d.ts"],
+      "pagination": ["dist/pagination/index.d.ts"],
+      "security": ["dist/security/index.d.ts"],
+      "email": ["dist/email/index.d.ts"],
+      "upload": ["dist/upload/index.d.ts"],
+      "test": ["dist/test/index.d.ts"],
+      "utils": ["dist/utils/index.d.ts"],
+      "push-notification": ["dist/push-notification/index.d.ts"],
+      "google-play": ["dist/google-play/index.d.ts"]
+    }
+  },
+  "engines": {
+    "node": ">=14.16",
+    "npm": ">=8"
+  }
+}

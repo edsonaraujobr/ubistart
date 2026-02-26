@@ -1,0 +1,40 @@
+{
+  "name": "template-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "turbo run build",
+    "build:image:rest-server": "npm run build --workspace=@repo/rest-server && npm run prune:rest-server && docker build -t rest-server:latest -f ./apps/rest-server/Dockerfile .",
+    "build:packages": "turbo run build --filter=\"./packages/*\"",
+    "clean": "turbo run clean",
+    "db:codegen": "turbo run db:codegen",
+    "dev": "turbo run dev",
+    "lint": "biome lint .",
+    "seed-db": "turbo run seed-db",
+    "format": "biome format . --write",
+    "migrate:deploy": "turbo run migrate:deploy",
+    "migrate:generate": "turbo run migrate:generate",
+    "migrate:sync": "turbo run migrate:sync",
+    "prune:rest-server": "rm -rf ./rest-server-pruned && turbo prune @repo/rest-server --docker --out-dir=rest-server-pruned",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.3",
+    "esbuild": "0.24.0",
+    "rimraf": "6.0.1",
+    "syncpack": "13.0.0",
+    "turbo": "2.0.12"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "googleapis": "^166.0.0"
+  }
+}

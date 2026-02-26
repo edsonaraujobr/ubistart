@@ -1,0 +1,35 @@
+{
+  "name": "@repo/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "type": "module",
+  "files": ["dist"],
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf .turbo node_modules",
+    "db:codegen": "prisma generate --schema schema.prisma",
+    "migrate:deploy": "npm_config_yes=true dotenv -e env.env  prisma migrate deploy --schema schema.prisma",
+    "migrate:generate": "dotenv -e env.env -- prisma migrate dev --schema schema.prisma",
+    "migrate:reset": "dotenv -e env.env -- prisma migrate reset --schema schema.prisma",
+    "migrate:sync": "dotenv -e env.env -- prisma db push --schema schema.prisma",
+    "postinstall": "npm run db:codegen"
+  },
+  "dependencies": {
+    "@pothos/plugin-prisma": "4.2.1",
+    "@prisma/client": "5.17.0",
+    "prisma": "5.17.0"
+  },
+  "devDependencies": {
+    "dotenv-cli": "7.4.2"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["dist/index.d.ts"]
+    }
+  }
+}
