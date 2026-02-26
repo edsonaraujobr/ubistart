@@ -37,7 +37,7 @@ export const taskModelWithUserEmailAndOverdue = taskModelWithOverdue.extend({
 });
 
 export const filterAdvancedGetTasks = filterInputSchema.extend({
-  onlyOverdue: z.boolean().optional(),
+  onlyOverdue: z.string().transform((value) => value === 'true')
 });
 
 export const getTasksSchema = paginatedSchema.extend({ nodes: z.array(taskModelWithOverdue) });
