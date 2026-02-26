@@ -9,12 +9,12 @@ Para clonar o repositório, siga os passos abaixo:
 3. Execute o seguinte comando no terminal:
 
 ```bash
-git clone https://github.com/edsonaraujobr/server
+git clone https://github.com/edsonaraujobr/ubistart
 ```
 
 ## 📦 Instalando as Dependências
 
-Depois de clonar o projeto, instale todos os pacotes necessários com o comando:
+Depois de clonar o projeto, você vera uma pasta chamado ubistart, entre nela e instale todos os pacotes necessários com o comando:
 
 ```bash
 npm i
@@ -24,6 +24,7 @@ npm i
 
 1. Faça uma pesquisa global buscando "test.env"
 2. Na mesma pasta adicione um ".env" copiando todo o conteudo de test.env
+Obs. são dois test.env
 
 ## Rodando o banco
 
@@ -31,9 +32,10 @@ npm i
 
 ## Rodando o servidor
 
-1. Execute o comando "npm run dev"
-2. Você pode visualizar a documentação swagger através do navegador pesquisando: "localhost:4001/docs"
-3. Você pode logar como admin usando as credenciais: admin@admin.com e Admin123! como email e senha respectivamente.
+1. Execute o comando "npm run build"
+2. Execute o comando "npm run dev"
+3. Você pode visualizar a documentação swagger através do navegador pesquisando: "localhost:4001/docs"
+4. Você pode logar como admin usando as credenciais: admin@admin.com e Admin123! como email e senha respectivamente.
 
 # 🧠 Fluxo de Trabalho com Git e Pull Request
 
