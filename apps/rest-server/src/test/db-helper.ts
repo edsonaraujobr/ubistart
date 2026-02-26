@@ -1,37 +1,26 @@
 import { dbClient } from '@data/db.client';
 
-let cachedTableNames: string[] = [];
-
-const allTables = async (): Promise<void> => {
-  if (!cachedTableNames.length) {
-    const data = await dbClient.$queryRaw<
-      { table_name: string }[]
-    >`
-      SELECT table_name 
-      FROM information_schema.tables 
-      WHERE table_schema = DATABASE()
-    `;
-
-    cachedTableNames = data
-      .map((row) => row.table_name)
-      .filter(
-        (name) =>
-          name &&
-          name !== '_prisma_migrations'
-      );
-  }
-};
-
 export async function clearDatabase(): Promise<void> {
-  if (!cachedTableNames.length) {
-    await allTables();
-  }
+  const tables: any[] = await dbClient.$queryRawUnsafe(`
+    SELECT TABLE_NAME
+    FROM information_schema.tables
+    WHERE table_schema = DATABASE()
+      AND TABLE_NAME != '_prisma_migrations'
+  `);
 
   await dbClient.$executeRawUnsafe('SET FOREIGN_KEY_CHECKS = 0;');
 
-  for (const table of cachedTableNames) {
+  for (const table of tables) {
+    const tableName = table.TABLE_NAME;
+
+    if (!tableName) continue;
+
     await dbClient.$executeRawUnsafe(
-      `TRUNCATE TABLE \`${table}\`;`
+      `DELETE FROM \`${tableName}\`;`
+    );
+
+    await dbClient.$executeRawUnsafe(
+      `ALTER TABLE \`${tableName}\` AUTO_INCREMENT = 1;`
     );
   }
 
