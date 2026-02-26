@@ -11,6 +11,7 @@ import type { FiltersModel, Paginated } from '@domain/model/common.model';
 import { GetTasksFromUserUseCase } from '@domain/tasks/get-tasks-from-user.use-case';
 import { filterInputSchema } from '@api/common/common.schema';
 import { GetAllTasksUseCase } from '@domain/tasks/get-all-tasks.use-case';
+import { AuthorizationMiddleware } from '@api/authorization.middleware';
 
 export const TasksRoutes: Routes[] = [
   {
@@ -24,6 +25,7 @@ export const TasksRoutes: Routes[] = [
         description: 'Cria um nova tarefa na plataforma',
         summary: 'Cria um nova tarefa na plataforma',
       },
+      beforeMiddlewares: [AuthorizationMiddleware],
       handler: ({ body }: { body: TaskInput }): Promise<TaskModel> => {
         const { userId } = ContextProvider.getInstance<ServerContext>().get();
 
@@ -47,6 +49,7 @@ export const TasksRoutes: Routes[] = [
         description: 'Finaliza uma tarefa',
         summary: 'Marca a tarefa como concluída',
       },
+      beforeMiddlewares: [AuthorizationMiddleware],
       handler: ({ params }: { params: { taskId: string } }): Promise<TaskModel> => {
         const { userId } =
           ContextProvider.getInstance<ServerContext>().get();
@@ -75,6 +78,7 @@ export const TasksRoutes: Routes[] = [
         description: 'Atualiza uma tarefa',
         summary: 'Atualiza descrição e/ou prazo de uma tarefa',
       },
+      beforeMiddlewares: [AuthorizationMiddleware],
       handler: ({
         params,
         body,
@@ -109,6 +113,7 @@ export const TasksRoutes: Routes[] = [
         description: "Busca todas as tasks do usuário paginado.",
         summary: "Busca todas as tasks do usuário paginado."
       },
+      beforeMiddlewares: [AuthorizationMiddleware],
       handler: ({ query }: { query: FiltersModel }): Promise<Paginated<TaskModelWithOverdue>> => {
         const userId = ContextProvider.getInstance<ServerContext>().get().userId;
         if (!userId) throw new UnauthorizedError();
@@ -129,6 +134,7 @@ export const TasksRoutes: Routes[] = [
         description: "Busca todas as tasks de todos usuários.",
         summary: "Busca todas as tasks de todos usuários. Com filtro opcional de tarefas atrasadas"
       },
+      beforeMiddlewares: [AuthorizationMiddleware],
       handler: ({ query }: { query: GetTaskFiltersAdvanced }): Promise<Paginated<TaskModelWithUserEmailAndOverdue>> => {
         const userId = ContextProvider.getInstance<ServerContext>().get().userId;
         if (!userId) throw new UnauthorizedError();
