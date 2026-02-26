@@ -73,7 +73,7 @@ export class RequestMaker<T> {
   }
 
   patch({ endpoint, expectedStatus = 200, body, query }: RequestOptions): Promise<HttpResponse<T>> {
-    return this.request({ method: 'PATCH', url: endpoint, body, query, responseSchema: null }, expectedStatus);
+    return this.request({ method: 'PATCH', url: endpoint, body: body ?? {}, query, responseSchema: null }, expectedStatus);
   }
 
   delete({ endpoint, expectedStatus = 200, body, query }: RequestOptions): Promise<HttpResponse<T>> {

@@ -26,5 +26,9 @@
   "activation-code.success": "Usuário ativado com sucesso.",
   "tasks.error.required-end-date": "A data de término é obrigatória. Por favor, forneça.",
   "tasks.error.required-description": "A descrição é obrigatória. Por favor, forneça.",
-  "tasks.error.invalid-end-date": "A data de término deve ser uma data futura. Por favor, verifique."
+  "tasks.error.invalid-end-date": "A data de término deve ser uma data futura. Por favor, verifique.",
+  "tasks.error.unauthorized": "Acesso negado. Você não tem permissão para acessar esta tarefa.",
+  "tasks.error.task-already-finished": "Esta tarefa já foi concluída. Não é possível editá-la ou marcá-la como concluída novamente.",
+  "tasks.error.required-task-id": "Erro, id da tarefa não enviado!",
+  "tasks.error.not-found": "Tarefa não encontrada. Por favor, verifique o ID e tente novamente."
 }
