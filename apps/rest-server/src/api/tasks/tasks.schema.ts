@@ -1,3 +1,4 @@
+import { filterInputSchema, paginatedSchema } from '@api/common/common.schema';
 import { StatusTask } from '@repo/db';
 import { z } from 'zod';
 
@@ -26,3 +27,19 @@ export const updateTaskBodySchema = z.object({
   description: z.string().optional(),
   endDate: z.coerce.date().optional(),
 });
+
+export const taskModelWithOverdue = taskModelSchema.extend({
+  isOverdue: z.boolean(),
+});
+
+export const taskModelWithUserEmailAndOverdue = taskModelWithOverdue.extend({
+  userEmail: z.string(),
+});
+
+export const filterAdvancedGetTasks = filterInputSchema.extend({
+  onlyOverdue: z.boolean().optional(),
+});
+
+export const getTasksSchema = paginatedSchema.extend({ nodes: z.array(taskModelWithOverdue) });
+
+export const getAllTasksSchema = paginatedSchema.extend({ nodes: z.array(taskModelWithUserEmailAndOverdue) });

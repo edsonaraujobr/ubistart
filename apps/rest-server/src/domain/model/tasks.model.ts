@@ -1,4 +1,5 @@
 import type { StatusTask } from "@repo/db";
+import type { FiltersModel } from "./common.model";
 
 export interface TaskModel {
   id: string;
@@ -23,4 +24,18 @@ export interface UpdateTaskInput {
   description?: string;
   endDate?: Date;
   taskId: string;
+}
+
+export interface TaskModelWithOverdue extends TaskModel {
+  isOverdue: boolean;
+}
+
+export interface TaskModelWithUserEmail extends TaskModel {
+  userEmail: string;
+}
+
+export interface TaskModelWithUserEmailAndOverdue extends TaskModelWithUserEmail, TaskModelWithOverdue {}
+
+export interface GetTaskFiltersAdvanced extends FiltersModel {
+  onlyOverdue?: boolean;
 }
