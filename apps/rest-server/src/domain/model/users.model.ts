@@ -33,3 +33,8 @@ export type UserWithCredentialsModel = UserModel & {
   password: string;
   salt: string;
 };
+
+export interface UserLoginInput {
+  email: string;
+  password: string;
+}

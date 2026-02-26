@@ -31,3 +31,12 @@ export const userCreationSchema = userSchema
       .string({ message: 'users.error.required-confirm-password' })
       .refine(isValidPassword, 'users.error.invalid-password'),
   });
+
+export const passwordSchemaField = z
+  .string({ message: 'users.error.required-password' })
+  .nonempty({ message: 'users.error.required-password' });
+  
+export const loginInputSchema = z.object({
+  email: emailSchemaField,
+  password: passwordSchemaField,
+});
