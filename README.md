@@ -33,6 +33,7 @@ npm i
 
 1. Execute o comando "npm run dev"
 2. Você pode visualizar a documentação swagger através do navegador pesquisando: "localhost:4001/docs"
+3. Você pode logar como admin usando as credenciais: admin@admin.com e Admin123! como email e senha respectivamente.
 
 # 🧠 Fluxo de Trabalho com Git e Pull Request
 
